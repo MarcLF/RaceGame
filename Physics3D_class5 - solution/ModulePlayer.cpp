@@ -25,7 +25,7 @@ bool ModulePlayer::Start()
 	car.chassis_size.Set(2, 1, 4);
 	car.chassis_offset.Set(0, 1, 0);
 	car.mass = 500.0f;
-	car.suspensionStiffness = 15.88f;
+	car.suspensionStiffness = 11.5f;
 	car.suspensionCompression = 0.83f;
 	car.suspensionDamping = 0.88f;
 	car.maxSuspensionTravelCm = 1000.0f;
@@ -102,7 +102,8 @@ bool ModulePlayer::Start()
 
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 7 + 8 + 12, 30);
-
+	//vehicle->SetPos(184, 12 + 15, 672.6-1.3);
+	//vehicle->SetPos(303.3 - 0.6, 8.35, 803.9 + 0.2);
 	App->camera->Follow(vehicle, 10, 20, 1.f);
 	return true;
 }
@@ -153,7 +154,8 @@ update_status ModulePlayer::Update(float dt)
 		seconds = 0;
 		minutes++;
 	}
-	
+	minutesrecord = 0;
+	secondsrecord = 0;
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
@@ -161,7 +163,7 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Render();
 	Kmh = vehicle->GetKmh();
 	char title[80];
-	sprintf_s(title, "%.1f Km/h	| %d m | %d s", Kmh, minutes,seconds);
+	sprintf_s(title, "%.1f Km/h	| %d m | %d s | Best Lap:", Kmh, minutes,seconds, minutesrecord, secondsrecord);
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;

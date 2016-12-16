@@ -22,9 +22,8 @@ public:
 public:
 	
 	PhysVehicle3D* vehicle;
-	int miliseconds;
-	int seconds;
-	int minutes;
+	int miliseconds, seconds, minutes, minutesrecord, secondsrecord;
+
 	float turn;
 	float acceleration;
 	float brake;
