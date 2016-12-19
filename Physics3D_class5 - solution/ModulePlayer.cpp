@@ -25,11 +25,11 @@ bool ModulePlayer::Start()
 	car.chassis_size.Set(2, 1, 4);
 	car.chassis_offset.Set(0, 1, 0);
 	car.mass = 500.0f;
-	car.suspensionStiffness = 11.5f;
+	car.suspensionStiffness = 11.85f;
 	car.suspensionCompression = 0.83f;
-	car.suspensionDamping = 0.88f;
-	car.maxSuspensionTravelCm = 1000.0f;
-	car.frictionSlip = 50.5;
+	car.suspensionDamping = 0.3;
+	car.maxSuspensionTravelCm = 500.0f;
+	car.frictionSlip = 1000;
 	car.maxSuspensionForce = 6000.0f;
 	//Timer
 	seconds = 0;
@@ -102,6 +102,7 @@ bool ModulePlayer::Start()
 
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 7 + 8 + 12, 30);
+	
 	//vehicle->SetPos(184, 12 + 15, 672.6-1.3);
 	//vehicle->SetPos(303.3 - 0.6, 8.35, 803.9 + 0.2);
 	App->camera->Follow(vehicle, 10, 20, 1.f);

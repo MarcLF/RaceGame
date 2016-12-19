@@ -10,12 +10,11 @@ ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(ap
 	CalculateViewMatrix();
 
 	X = vec3(1.0f, 0.0f, 0.0f);
-	Y = vec3(0.0f, 1.0f, 0.0f);
+	Y = vec3(0.0f, 2.0f, 0.0f);
 	Z = vec3(0.0f, 0.0f, 1.0f);
 
 	Position = vec3(0.0f, 0.0f, 5.0f);
 	Reference = vec3(0.0f, 0.0f, 0.0f);
-
 	following = NULL;
 }
 
@@ -51,12 +50,10 @@ update_status ModuleCamera3D::Update(float dt)
 		following->GetTransform(&m);
 
 		Look(Position, m.translation(), true);
-
-		// Correct height
-		Position.y = 34;
 		
-	
-
+		// Correct height
+		Position.y = 4 + Reference.y;
+		
 		// Correct distance
 		vec3 cam_to_target = m.translation() - Position;
 		float dist = length(cam_to_target);
@@ -70,6 +67,7 @@ update_status ModuleCamera3D::Update(float dt)
 			correctionFactor = 0.5*(max_following_dist - dist) / dist;
 		}
 		Position -= correctionFactor * cam_to_target;
+		
 
 	}
 	
@@ -149,6 +147,7 @@ void ModuleCamera3D::Look(const vec3 &Position, const vec3 &Reference, bool Rota
 	{
 		this->Reference = this->Position;
 		this->Position += Z * 0.05f;
+	
 	}
 
 	CalculateViewMatrix();

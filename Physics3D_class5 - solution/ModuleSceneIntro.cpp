@@ -294,6 +294,16 @@ bool ModuleSceneIntro::Start()
 	c[53].SetRotation(180, vec3(0.0f, -1.0f, 0.0f));
 	App->physics->AddBody(c[53], 0);
 
+	c[54].size.Set(road_width, road_height, 60);
+	c[54].SetPos(324 - 2.3, 8.35, 752);
+	c[54].SetRotation(180, vec3(0.0f, -1.0f, 0.0f));
+	App->physics->AddBody(c[54], 0);
+
+	c[56].size.Set(road_width, road_height, 60);
+	c[56].SetPos(324 - 2.3, 8.35, 752);
+	c[56].SetRotation(180, vec3(0.0f, -1.0f, 0.0f));
+	App->physics->AddBody(c[56], 0);
+
 	
 	//	//x=0,	y=56.1,	z=193
 	return ret;
