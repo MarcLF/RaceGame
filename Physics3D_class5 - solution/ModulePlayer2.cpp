@@ -1,26 +1,26 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "Primitive.h"
 #include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
 #include "ModuleSceneIntro.h"
 
-ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle(NULL)
+ModulePlayer2::ModulePlayer2(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle2(NULL)
 {
 	turn = acceleration = brake = 0.0f;
 }
 
-ModulePlayer::~ModulePlayer()
+ModulePlayer2::~ModulePlayer2()
 {}
 
 // Load assets
-bool ModulePlayer::Start()
+bool ModulePlayer2::Start()
 {
 	LOG("Loading player");
 
 	VehicleInfo car;
-	
+
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 1, 4);
 	car.chassis_offset.Set(0, 1, 0);
@@ -45,10 +45,10 @@ bool ModulePlayer::Start()
 
 	float half_width = car.chassis_size.x*0.5f;
 	float half_length = car.chassis_size.z*0.5f;
-	
-	vec3 direction(0,-1,0);
-	vec3 axis(-1,0,0);
-	
+
+	vec3 direction(0, -1, 0);
+	vec3 axis(-1, 0, 0);
+
 	car.num_wheels = 4;
 	car.wheels = new Wheel[4];
 
@@ -100,17 +100,17 @@ bool ModulePlayer::Start()
 	car.wheels[3].brake = true;
 	car.wheels[3].steering = false;
 
-	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(2, 27, 30);
-	
+	vehicle2 = App->physics->AddVehicle(car);
+	vehicle2->SetPos(-1, 27, 30);
+
 	//vehicle->SetPos(184, 12 + 15, 672.6-1.3);
 	//vehicle->SetPos(303.3 - 0.6, 8.35, 803.9 + 0.2);
-	App->camera->Follow(vehicle, 10, 20, 1.f);
+	App->camerap2->Follow(vehicle2, 10, 20, 1.f);
 	return true;
 }
 
 // Unload assets
-bool ModulePlayer::CleanUp()
+bool ModulePlayer2::CleanUp()
 {
 	LOG("Unloading player");
 
@@ -118,31 +118,31 @@ bool ModulePlayer::CleanUp()
 }
 
 // Update: draw background
-update_status ModulePlayer::Update(float dt)
+update_status ModulePlayer2::Update(float dt)
 {
 	turn = acceleration = brake = 0.0f;
-	
-	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+
+	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
 		acceleration = MAX_ACCELERATION;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 	{
 		acceleration = -MAX_ACCELERATION;
 	}
-	if(App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
-		if(turn < TURN_DEGREES)
-			turn +=  TURN_DEGREES;
+		if (turn < TURN_DEGREES)
+			turn += TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
-		if(turn > -TURN_DEGREES)
+		if (turn > -TURN_DEGREES)
 			turn -= TURN_DEGREES;
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_REPEAT)
 	{
 		brake = BRAKE_POWER;
 	}
@@ -157,21 +157,14 @@ update_status ModulePlayer::Update(float dt)
 	}
 	minutesrecord = 0;
 	secondsrecord = 0;
-	vehicle->ApplyEngineForce(acceleration);
-	vehicle->Turn(turn);
-	vehicle->Brake(brake);
+	vehicle2->ApplyEngineForce(acceleration);
+	vehicle2->Turn(turn);
+	vehicle2->Brake(brake);
 
-	vehicle->Render();
-	Kmh = vehicle->GetKmh();
+	vehicle2->Render();
+	Kmh = vehicle2->GetKmh();
 
-	
-	title.create("Player1: %.1f Km/h | %d m | %d s | Best Lap:", Kmh, minutes, seconds, minutesrecord, secondsrecord);
-
-	title += App->player2->title2;
-	title_print = title.GetString();
-
-	printf_s(title_print);
-	App->window->SetTitle(title_print);
+	title2.create("Player2: %.1f Km/h | %d m | %d s | Best Lap:", Kmh, minutes, seconds, minutesrecord, secondsrecord);
 
 	return UPDATE_CONTINUE;
 }

@@ -8,11 +8,12 @@
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModulePhysics3D.h"
 #include "ModuleSceneIntro.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
-
+#include "ModuleCamera3DP2.h"
 
 class Application
 {
@@ -23,8 +24,10 @@ public:
 	ModuleSceneIntro* scene_intro;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
+	ModuleCamera3DP2* camerap2;
 	ModulePhysics3D* physics;
 	ModulePlayer* player;
+	ModulePlayer2* player2;
 
 private:
 
