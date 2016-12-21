@@ -233,7 +233,7 @@ bool ModuleSceneIntro::Start()
 	App->physics->AddBody(c[41], 0);
 
 	//Curve for d
-	c[52].size.Set(road_width , road_height,345);
+	c[52].size.Set(road_width , road_height,350);
 	c[52].SetPos(184, 12 + 15, 460);
 	App->physics->AddBody(c[52], 0);
 
@@ -261,7 +261,7 @@ bool ModuleSceneIntro::Start()
 	c[51].SetPos(125.2, 27, 30 + 224.4);
 	App->physics->AddBody(c[51], 0);
 
-	//Up F
+	//Up PF
 
 	c[57].size.Set(7.5, road_height, road_width);
 	c[57].SetPos(97, 27.6, 30 + 224.4);
@@ -279,22 +279,65 @@ bool ModuleSceneIntro::Start()
 	App->physics->AddBody(c[59], 0);
 
 	c[60].size.Set(7.5, road_height, road_width);
-	c[60].SetPos(55, 51, 30 + 224.4);
+	c[60].SetPos(57.8, 49.32, 30 + 224.4);
 	c[60].SetRotation(22.25, vec3(0.0f, 0.0f, -1.0f));
 	App->physics->AddBody(c[60], 0);
 
-	/*c[57].size.Set(7.5, road_height, road_width);
-	c[57].SetPos(97, 27.6, 30 + 224.4);
-	c[57].SetRotation(11.25, vec3(0.0f, 0.0f, 1.0f));
-	App->physics->AddBody(c[57], 0);*/
+	c[0].size.Set(7.5, road_height, road_width);
+	c[0].SetPos(0, 15, 30 + 224.4);
+	c[0].SetRotation(0, vec3(0.0f, 0.0f, -1.0f));
+	App->physics->AddBody(c[0], 0);
+	
+	c[61].size.Set(7.5, road_height, road_width);
+	c[61].SetPos(50.9, 51.4, 30 + 224.4);
+	c[61].SetRotation(11.25, vec3(0.0f, 0.0f, -1.0f));
+	App->physics->AddBody(c[61], 0);
+
+	c[62].size.Set(15, road_height, road_width);
+	c[62].SetPos(40, 52.1, 30 + 224.4);
+	App->physics->AddBody(c[62], 0);
+
+	//DownPF
+	c[63].size.Set(7.5, road_height, road_width);
+	c[63].SetPos(22.2, 49.32, 30 + 224.4);
+	c[63].SetRotation(22.25, vec3(0.0f, 0.0f, 1.0f));
+	App->physics->AddBody(c[63], 0);
+
+	c[64].size.Set(7.5, road_height, road_width);
+	c[64].SetPos(29.1, 51.4, 30 + 224.4);
+	c[64].SetRotation(11.25, vec3(0.0f, 0.0f, 1.0f));
+	App->physics->AddBody(c[64], 0);
+	//LineD
+	c[65].size.Set(40, road_height, road_width);
+	c[65].SetPos(2.4, 36.94, 30 + 224.4);
+	c[65].SetRotation(33.75, vec3(0.0f, 0.0f, 1.0f));
+	App->physics->AddBody(c[65], 0);
+
+	//DPF
+	c[66].size.Set(35, road_height, road_width);
+	c[66].SetPos(-5.2-15.8 - 1.55, 6.35 + 23.62 + 0.1 - 9.8, 30 + 224.4);
+	c[66].SetRotation(33.75, vec3(0.0f, 0.0f, 1.0f));
+	App->physics->AddBody(c[66], 0);
+
+	c[67].size.Set(7.5, road_height, road_width);
+	c[67].SetPos(-14.7-22.6-1.55, 10.3, 30 + 224.4);
+	c[67].SetRotation(22.25, vec3(0.0f, 0.0f, 1.0f));
+	App->physics->AddBody(c[67], 0);
+	
+	c[68].size.Set(7.5, road_height, road_width);
+	c[68].SetPos(-14.7-30-1.55, 8.05, 30 + 224.4);
+	c[68].SetRotation(11.25, vec3(0.0f, 0.0f, 1.0f));
+	App->physics->AddBody(c[68], 0);
+
+	
 
 
 	//Down
-	c[43].size.Set(160, road_height, road_width);
-	c[43].SetPos(0, 2 + 15, 30 + 224.4);
+	c[43].size.Set(120, road_height, road_width);
+	c[43].SetPos(-100, 7.3, 30 + 224.4);
 	App->physics->AddBody(c[43], 0);
 
-	c[44].size.Set(60, road_height,15);
+	c[44].size.Set(60, road_height,road_width);
 	c[44].SetPos(-94.5, 7.3, -37.5);
 	App->physics->AddBody(c[44], 0);
 
@@ -324,12 +367,35 @@ bool ModuleSceneIntro::Start()
 	c[49].SetPos(-11.5, 11 + 15,-37.5);
 	c[49].SetRotation(190, vec3(0.0f, 0.0f, 1.0f));
 	App->physics->AddBody(c[49], 0);
-	///////
 	
+	/////// Curve final ramp182
+	
+	c[69].size.Set(road_width, road_height, 15);
+	c[69].SetPos(-129.5, 7.3, -35.5);
+	c[69].SetRotation(18+90, vec3(0.0f, 1.0f, 0.0f));
+	App->physics->AddBody(c[69], 0);
+
+	c[70].size.Set(road_width, road_height, 15);
+	c[70].SetPos(-140.9, 7.3, -29.7);
+	c[70].SetRotation(36+90, vec3(0.0f, 1.0f, 0.0f));
+	App->physics->AddBody(c[70], 0);
+
+	c[71].size.Set(road_width, road_height, 15);
+	c[71].SetPos(-150, 7.3, -20.5);
+	c[71].SetRotation(54+90, vec3(0.0f, 1.0f, 0.0f));
+	App->physics->AddBody(c[71], 0);
+
+	c[72].size.Set(road_width, road_height, 15);
+	c[72].SetPos(-155.8, 7.3, -9);
+	c[72].SetRotation(72+90, vec3(0.0f, 1.0f, 0.0f));
+	App->physics->AddBody(c[72], 0);
+
+	c[73].size.Set(road_width, road_height, 270);
+	c[73].SetPos(-159, 7.3, 125);
+	App->physics->AddBody(c[73], 0);
 
 
 
-	//Curve down
 
 	
 

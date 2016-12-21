@@ -179,5 +179,7 @@ update_status ModulePlayer::Update(float dt)
 
 void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
-
+	if (body1 == App->player->vehicle && body2 == App->scene_intro->sensor[1]) {
+		vehicle->SetPos(2, 27, 30);
+	}
 }
