@@ -44,7 +44,12 @@ update_status ModuleCamera3D::Update(float dt)
 {
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
-
+	if ( App->player->recover_camera==true) {
+		Position.x = Reference.x;
+		Position.y = Reference.y + 4;
+		Position.z = Reference.z-10;
+		App->player->recover_camera = false;
+	}
 	if (following != NULL && App->player->Kmh >1 || App->player->Kmh <-1)
 	{
 		mat4x4 m;

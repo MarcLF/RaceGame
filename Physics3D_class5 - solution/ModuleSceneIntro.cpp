@@ -1,7 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleSceneIntro.h"
+#include "ModulePhysics3D.h"
 #include "Primitive.h"
+#include "PhysVehicle3D.h"
 #include "PhysBody3D.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -20,10 +22,10 @@ bool ModuleSceneIntro::Start()
 	seconds = 0;
 	App->camera->Move(vec3(-1.0f, 0.0f, -10.0f));
 
-
+	sensor_form = { 1000,1,2000 };
 	float road_width = 12.0f;
 	float road_height = 3.0f;
-
+	fallen = false;
 	c[1].size.Set(road_width, road_height, 150);
 	c[1].SetPos(0, 7+8+12, 30);
 	App->physics->AddBody(c[1], 0)->collision_listeners.add(this);
@@ -401,7 +403,14 @@ bool ModuleSceneIntro::Start()
 
 
 	//Sensor
-	s[1].size = vec3(1000, 1, 2000);
+	sensor1 = App->physics->AddBody(sensor_form, 0.0f);
+	sensor1->SetAsSensor(true);
+	sensor1->SetPos(0, 0, 0);
+	sensor1->GetTransform(&sensor_form.transform);
+	sensor1->collision_listeners.add(this);
+
+
+	/*s[1].size = vec3(1000, 1, 2000);
 	s[1].SetPos(0, 0, 0);
 
 	sensor[1] = App->physics->AddBody(s[1], 0.0f);
@@ -432,7 +441,7 @@ bool ModuleSceneIntro::Start()
 	sensor[5] = App->physics->AddBody(s[5], 0.0f);
 	sensor[5]->SetAsSensor(true);
 	sensor[5]->collision_listeners.add(this);
-	//	//x=0,	y=56.1,	z=193	2, 27, 30
+	//	//x=0,	y=56.1,	z=193	2, 27, 30*/
 	return ret;
 }
 
@@ -444,6 +453,17 @@ bool ModuleSceneIntro::CleanUp()
 	return true;
 }
 
+void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
+{
+
+	if (body1 == sensor1 && body2 == App->player->vehicle)
+	{
+		fallen = true;
+		LOG("HIT!");
+	}
+}
+
+
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
@@ -454,7 +474,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	{
 		c[n].Render();
 	}
-	sensor[1]->GetTransform(&s[1].transform);
+	/*sensor[1]->GetTransform(&s[1].transform);
 	s[1].Render();
 	sensor[2]->GetTransform(&s[2].transform);
 	s[2].Render();
@@ -463,12 +483,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	sensor[4]->GetTransform(&s[4].transform);
 	s[4].Render();
 	sensor[5]->GetTransform(&s[5].transform);
-	s[5].Render();
+	s[5].Render();*/
 	
 	return UPDATE_CONTINUE;
 }
 
-void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
-{
-}
 

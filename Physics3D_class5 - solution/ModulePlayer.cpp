@@ -40,7 +40,7 @@ bool ModulePlayer::Start()
 	float wheel_radius = 0.6f;
 	float wheel_width = 0.5f;
 	float suspensionRestLength = 1.2f;
-
+	bool recover_camera = false;
 	// Don't change anything below this line ------------------
 
 	float half_width = car.chassis_size.x*0.5f;
@@ -102,7 +102,7 @@ bool ModulePlayer::Start()
 
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(2, 27, 30);
-	
+	vehicle->GetTransform(IdentityMatrix.M);
 	//vehicle->SetPos(184, 12 + 15, 672.6-1.3);
 	//vehicle->SetPos(303.3 - 0.6, 8.35, 803.9 + 0.2);
 	App->camera->Follow(vehicle, 10, 20, 1.f);
@@ -146,6 +146,18 @@ update_status ModulePlayer::Update(float dt)
 	{
 		brake = BRAKE_POWER;
 	}
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_UP || App->scene_intro->fallen == true)
+	{
+
+		vehicle->SetPos(2, 30, 30);
+		vehicle->SetTransform(IdentityMatrix.M);
+		vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
+		vehicle->body->setAngularVelocity(btVector3(0, 90, 0));
+		brake = BRAKE_POWER;
+		App->scene_intro->fallen = false;
+		recover_camera = true;
+	
+	}
 	miliseconds++;
 	if (miliseconds == 59) {
 		miliseconds = 0;
@@ -177,9 +189,3 @@ update_status ModulePlayer::Update(float dt)
 }
 
 
-void ModulePlayer::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
-{
-	if (body1 == App->player->vehicle && body2 == App->scene_intro->sensor[1]) {
-		vehicle->SetPos(2, 27, 30);
-	}
-}

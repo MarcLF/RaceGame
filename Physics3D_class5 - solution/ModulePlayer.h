@@ -15,7 +15,7 @@ class ModulePlayer : public Module
 public:
 	ModulePlayer(Application* app, bool start_enabled = true);
 	virtual ~ModulePlayer();
-	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
+
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
@@ -29,7 +29,7 @@ public:
 	float acceleration;
 	float brake;
 	float Kmh;
-
+	bool recover_camera;
 	const char* title_print;
 	p2SString title;
 };
