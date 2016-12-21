@@ -29,6 +29,8 @@ public:
 	PhysBody3D* pb_snake2[MAX_SNAKE];
 	Sphere s_snake2[MAX_SNAKE];
 	*/
+	PhysBody3D* sensor[10];
+	Cube s[10];
 	int minutes, n;
 	int seconds;
 	Cube c[60];

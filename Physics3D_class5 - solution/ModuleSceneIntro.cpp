@@ -172,7 +172,7 @@ bool ModuleSceneIntro::Start()
 	App->physics->AddBody(c[28], 0);
 	
 	c[29].size.Set(road_width, road_height, 15);
-	c[29].SetPos(314.2-1.7, 12 + 15, 796.6+0.8);
+	c[29].SetPos(312, 12 + 15, 798);
 	c[29].SetRotation(135, vec3(0.0f, 1.0f, 0.0f));
 	App->physics->AddBody(c[29], 0);
 	
@@ -203,7 +203,7 @@ bool ModuleSceneIntro::Start()
 	App->physics->AddBody(c[34], 0);
 
 	c[35].size.Set(road_width * 2 / 3, road_height, 50);
-	c[35].SetPos(278-52, 12 + 15, 700.34+3.4);
+	c[35].SetPos(278-52, 12 + 15, 700.34+4.75);
 	App->physics->AddBody(c[35], 0);
 
 	c[36].size.Set(road_width * 2 / 3, road_height, 50);
@@ -304,8 +304,62 @@ bool ModuleSceneIntro::Start()
 	c[56].SetRotation(180, vec3(0.0f, -1.0f, 0.0f));
 	App->physics->AddBody(c[56], 0);
 
-	
-	//	//x=0,	y=56.1,	z=193
+	//Curve down
+
+	c[52].size.Set(road_width, road_height, 18);
+	c[52].SetPos(321.5 - 2.8, 8.35, 785.7 + 2);
+	c[52].SetRotation(157.5, vec3(0.0f, -1.0f, -0.0f));
+	App->physics->AddBody(c[52], 0);
+
+	c[53].size.Set(road_width, road_height, 60);
+	c[53].SetPos(324 - 2.3, 8.35, 752);
+	c[53].SetRotation(180, vec3(0.0f, -1.0f, 0.0f));
+	App->physics->AddBody(c[53], 0);
+
+	c[54].size.Set(road_width, road_height, 60);
+	c[54].SetPos(324 - 2.3, 8.35, 752);
+	c[54].SetRotation(180, vec3(0.0f, -1.0f, 0.0f));
+	App->physics->AddBody(c[54], 0);
+
+	c[56].size.Set(road_width, road_height, 60);
+	c[56].SetPos(324 - 2.3, 8.35, 752);
+	c[56].SetRotation(180, vec3(0.0f, -1.0f, 0.0f));
+	App->physics->AddBody(c[56], 0);
+
+
+	//Sensor
+	s[1].size = vec3(1000, 1, 2000);
+	s[1].SetPos(0, 0, 0);
+
+	sensor[1] = App->physics->AddBody(s[1], 0.0f);
+	sensor[1]->SetAsSensor(true);
+	sensor[1]->collision_listeners.add(this);
+
+
+	s[2].size = vec3(road_width, 7, 1);
+	s[2].SetPos(0.9, 12 + 15, 562);
+	sensor[2] = App->physics->AddBody(s[2], 0.0f);
+	sensor[2]->SetAsSensor(true);
+	sensor[2]->collision_listeners.add(this);
+
+	s[3].size = vec3(1, 3, road_width - 2);
+	s[3].SetPos(302, 12 + 15+3, 722.67 + 3.4);
+	sensor[3] = App->physics->AddBody(s[3], 0.0f);
+	sensor[3]->SetAsSensor(true);
+	sensor[3]->collision_listeners.add(this);
+
+	s[4].size = vec3(road_width, 7, 1);
+	s[4].SetPos(278 - 94, 4+12 + 15, 700.34);
+	sensor[4] = App->physics->AddBody(s[4], 0.0f);
+	sensor[4]->SetAsSensor(true);
+	sensor[4]->collision_listeners.add(this);
+
+	s[5].size = vec3(road_width, 7, 1);
+	s[5].SetPos(0, 27, 15);
+	sensor[5] = App->physics->AddBody(s[5], 0.0f);
+	sensor[5]->SetAsSensor(true);
+	sensor[5]->collision_listeners.add(this);
+	//	//x=0,	y=56.1,	z=193	2, 27, 30
 	return ret;
 }
 
@@ -327,7 +381,16 @@ update_status ModuleSceneIntro::Update(float dt)
 	{
 		c[n].Render();
 	}
-
+	sensor[1]->GetTransform(&s[1].transform);
+	s[1].Render();
+	sensor[2]->GetTransform(&s[2].transform);
+	s[2].Render();
+	sensor[3]->GetTransform(&s[3].transform);
+	s[3].Render();
+	sensor[4]->GetTransform(&s[4].transform);
+	s[4].Render();
+	sensor[5]->GetTransform(&s[5].transform);
+	s[5].Render();
 
 	return UPDATE_CONTINUE;
 }
