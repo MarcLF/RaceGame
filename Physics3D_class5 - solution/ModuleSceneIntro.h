@@ -33,7 +33,7 @@ public:
 	Cube s[10];
 	int minutes, n;
 	int seconds;
-	Cube c[60];
+	Cube c[80];
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;
 
