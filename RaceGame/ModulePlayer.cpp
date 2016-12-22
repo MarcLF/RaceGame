@@ -9,6 +9,7 @@
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled), vehicle(NULL)
 {
 	turn = acceleration = brake = 0.0f;
+	
 }
 
 ModulePlayer::~ModulePlayer()
@@ -107,7 +108,14 @@ bool ModulePlayer::Start()
 
 	vehicle = App->physics->AddVehicle(car);
 
+<<<<<<< HEAD
 	vehicle->SetPos(2, 40, 30);
+=======
+	minutesrecord = 0;
+	secondsrecord = 0;
+
+	vehicle->SetPos(-150, 7.3, -20.50);
+>>>>>>> origin/master
 	vehicle->GetTransform(IdentityMatrix.M);
 	App->camera->Follow(vehicle, 10, 20, 1.f);
 
@@ -205,7 +213,7 @@ update_status ModulePlayer::Update(float dt)
 		
 			App->scene_intro->fallen = false;
 		}
-		if (App->scene_intro->P1_Win == true || App->scene_intro->P2_Win == true) {
+		if (App->scene_intro->winnerp1 == true || App->scene_intro->winnerp2 == true) {
 			vehicle->SetPos(2, 27, 30);
 			vehicle->SetTransform(IdentityMatrix.M);
 			vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
@@ -213,6 +221,12 @@ update_status ModulePlayer::Update(float dt)
 			brake = BRAKE_POWER;
 			App->scene_intro->fallen = false;
 			App->scene_intro->P1_Win == false;
+			if (minutesrecord > minutes && secondsrecord>seconds) {
+				minutesrecord = minutes;
+				secondsrecord = seconds;
+			}
+			seconds = 0;
+			minutes = 0;
 		}
 	}//302, 27, 726.07
 	miliseconds++;
@@ -224,8 +238,7 @@ update_status ModulePlayer::Update(float dt)
 		seconds = 0;
 		minutes++;
 	}
-	minutesrecord = 0;
-	secondsrecord = 0;
+
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
@@ -233,7 +246,7 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Render();
 	Kmh = vehicle->GetKmh();
 	
-	title.create("Player1: %.1f Km/h | %d m | %d s | Best Lap:", Kmh, minutes, seconds, minutesrecord, secondsrecord);
+	title.create("Player1: %.1f Km/h | %d m | %d s | Best Lap: %d m | %d s", Kmh, minutes, seconds, minutesrecord, secondsrecord);
 
 	title += App->player2->title2;
 	title_print = title.GetString();
