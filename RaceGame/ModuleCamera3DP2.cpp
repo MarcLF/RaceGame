@@ -13,7 +13,7 @@ ModuleCamera3DP2::ModuleCamera3DP2(Application* app, bool start_enabled) : Modul
 	Y = vec3(0.0f, 2.0f, 0.0f);
 	Z = vec3(0.0f, 0.0f, 1.0f);
 
-	Position = vec3(0.0f, 0.0f, 5.0f);
+	Position = vec3(0.0f, 0.0f, 10.0f);
 	Reference = vec3(0.0f, 0.0f, 0.0f);
 	following = NULL;
 }
@@ -43,13 +43,13 @@ update_status ModuleCamera3DP2::Update(float dt)
 {
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
-	if (App->input->GetKey(SDL_SCANCODE_X)== KEY_REPEAT) {
+	if (App->input->GetKey(SDL_SCANCODE_N)== KEY_REPEAT) {
 		Position.x = Reference.x;
 		Position.y = Reference.y + 9;
 		Position.z = Reference.z - 10;
 
 	}
-	if (following != NULL && App->player->Kmh >1 || App->player->Kmh <-1)
+	if (following != NULL && App->player2->Kmh >1 || App->player2->Kmh <-1)
 	{
 		mat4x4 m;
 		following->GetTransform(&m);
@@ -60,7 +60,6 @@ update_status ModuleCamera3DP2::Update(float dt)
 
 		Position.y = 9 + Reference.y;
 		
-
 		// Correct distance
 		vec3 cam_to_target = m.translation() - Position;
 		float dist = length(cam_to_target);
@@ -96,7 +95,7 @@ update_status ModuleCamera3DP2::Update(float dt)
 
 	// Mouse motion ----------------
 
-	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	if (App->input->GetMouseButton(SDL_BUTTON_MIDDLE) == KEY_REPEAT)
 	{
 		int dx = -App->input->GetMouseXMotion();
 		int dy = -App->input->GetMouseYMotion();
@@ -130,7 +129,6 @@ update_status ModuleCamera3DP2::Update(float dt)
 
 		Position = Reference + Z * length(Position);
 	}
-
 
 	// Recalculate matrix -------------
 	CalculateViewMatrix();

@@ -21,10 +21,13 @@ public:
 	bool CleanUp();
 
 	p2SString title2;
+
+	Cube carcube;
+	PhysBody3D* CarBodyCube;
 public:
 
 	PhysVehicle3DP2* vehicle2;
-	int miliseconds, seconds, minutes, minutesrecord, secondsrecord;
+	Timer msec;
 	int engine_fx, brake_fx;
 	float turn;
 	float acceleration;

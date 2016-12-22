@@ -18,8 +18,6 @@ bool ModuleSceneIntro::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
-	minutes = 0;
-	seconds = 0;
 	App->camera->Move(vec3(-1.0f, 0.0f, -10.0f));
 	App->camerap2->Move(vec3(-1.0f, 0.0f, -10.0f));
 
@@ -28,7 +26,6 @@ bool ModuleSceneIntro::Start()
 	P1_Win = App->audio->LoadFx("Game/Fx/P1_Wins.wav");
 	P2_Win = App->audio->LoadFx("Game/Fx/P2_Wins.wav");
 
-	
 	float road_width = 12.0f;
 	float road_height = 3.0f;
 	fallen = false;
@@ -42,7 +39,7 @@ bool ModuleSceneIntro::Start()
 	sen2_1 = false;
 	sen2_2 = false;
 	sen2_3 = false;
-	sen2_4 = true;
+	sen2_4 = false;
 	
 	sensor_floor = { 1000,1,2000 };
 	sensor_form = { road_width, road_height * 3, 1 };
@@ -439,26 +436,6 @@ bool ModuleSceneIntro::Start()
 	c[76].SetPos(-6, 50, -37);
 	App->physics->AddBody(c[76], 0);
 
-	/*c[77].size.Set(road_width/4, road_height*5, 15);
-	c[77].SetPos(0, 38, 40);
-	c[77].SetRotation(90, vec3(0.0f, -1.0f, 0.0f));
-	doorbody[0] = App->physics->AddBody(c[77], 0.1f);
-
-	c[78].size.Set(1, 1, 1);
-	c[78].SetPos(10, 38, 40);
-	doorbody[1] = App->physics->AddBody(c[78], 0.1f);
-
-	btVector3 vec1( 0, 1, 0 );
-	btVector3 vec2( 0, 1, 0 );
-
-	btVector3 piv1(0, 0, 0);
-	btVector3 piv2(0, 0, 0);
-
-	doorhinge = App->physics->Add_Hinge_Constraint(*doorbody[0]->body, *doorbody[1]->body, piv1, piv2, vec1, vec2, false);
-	doorhinge->setLimit(90, 90);
-	doorhinge->setMaxMotorImpulse(10.0f);
-	doorhinge->enableMotor(true);*/
-
 	//White Flag Win
 
 	w[0].size.Set(1, 2.25, 2.25);
@@ -476,7 +453,6 @@ bool ModuleSceneIntro::Start()
 	w[3].size.Set(1, 2.25, 2.25);
 	w[3].SetPos(-6, 50, -37);
 	App->physics->AddBody(w[3], 0);
-
 
 	w[4].size.Set(1, 2.25, 2.25);
 	w[4].SetPos(-6, 52.25, -37-2.25);
@@ -561,9 +537,8 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	if (body1 == sensor_flo && body2 == App->player->vehicle)
 	{
-		
 		fallen = true;
-		Crash_fx = App->audio->LoadFx("Game/Fx/crashfx.wav");
+		App->audio->PlayFx(Crash_fx);
 		LOG("HIT!");
 	}
 	if (body1 == sensor_1 && body2 == App->player->vehicle)
@@ -586,16 +561,16 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		sen_4 = true;
 		LOG("HIT!");
 	}
-	if (body1 == sensor_5 && body2 == App->player->vehicle && sen_4 == true)
+	if (body1 == sensor_5 && body2 == App->player->vehicle)
 	{
-		P1_Win = App->audio->LoadFx("Game/Fx/P1_Wins.wav");
+		App->audio->PlayFx(P1_Win);
 		winnerp1 = true;
 		LOG("HIT!");
 	}
 	///2nd player
 	if (body1 == sensor_flo && body2 == App->player2->vehicle2)
 	{
-		Crash_fx = App->audio->LoadFx("Game/Fx/crashfx.wav");
+		App->audio->PlayFx(Crash_fx);
 		fallen2 = true;
 		LOG("HIT!");
 	}
@@ -621,11 +596,28 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	}
 	if (body1 == sensor_5 && body2 == App->player2->vehicle2 && sen2_4 == true)
 	{
-		P2_Win = App->audio->LoadFx("Game/Fx/P2_Wins.wav");
+		App->audio->PlayFx(P2_Win);
 		winnerp2 = true;
 		LOG("HIT!");
 	}
+}
 
+void ModuleSceneIntro::allfalse()
+{
+	bool sen_1 = false;
+	bool sen_2 = false;
+	bool sen_3 = false;
+	bool sen_4 = false;
+	bool sen2_1 = false;
+	bool sen2_2 = false;
+	bool sen2_3 = false;
+	bool sen2_4 = false;
+	fallen = false;
+	fallen2 = false;
+	P1_Win == false;
+	P2_Win == false;
+	winnerp1 = false;
+	winnerp2 = false;
 }
 // Load assets
 bool ModuleSceneIntro::CleanUp()
@@ -646,8 +638,19 @@ update_status ModuleSceneIntro::Update(float dt)
 	{
 		w[n].Render();
 	}
-
+	if (App->scene_intro->winnerp1 == true || App->scene_intro->winnerp2 == true) 
+	{
+		App->player->vehicle->SetTransform(IdentityMatrix.M);
+		App->player2->vehicle2->SetTransform(IdentityMatrix.M);
+		App->player->vehicle->SetPos(2, 35, 30);
+		App->player2->vehicle2->SetPos(-1, 35, 30);
+		App->player->vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
+		App->player->vehicle->body->setAngularVelocity(btVector3(0, 0, 0));
+		App->player2->vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
+		App->player2->vehicle2->body->setAngularVelocity(btVector3(0, 0, 0));
+		App->player->brake = BRAKE_POWER;
+		App->player2->brake = BRAKE_POWER;
+		allfalse();
+	}
 	return UPDATE_CONTINUE;
 }
-
-

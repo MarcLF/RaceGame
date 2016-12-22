@@ -5,7 +5,6 @@
 #include "Primitive.h"
 #include "p2Point.h"
 
-
 #define MAX_SNAKE 2
 
 struct PhysBody3D;
@@ -33,8 +32,7 @@ public:
 	*/
 	
 	Cube s[10];
-	int minutes, n;
-	int seconds;
+	int n;
 
 	int Main_song;
 	int Crash_fx;
@@ -69,19 +67,21 @@ public:
 	bool winnerp1;
 	bool winnerp2;
 
-	bool sen_1;
-	bool sen_2;
-	bool sen_3;
-	bool sen_4;
-	bool sen2_1;
-	bool sen2_2;
-	bool sen2_3;
-	bool sen2_4;
+	bool sen_1 = false;
+	bool sen_2 = false;
+	bool sen_3 = false;
+	bool sen_4 = false;
+	bool sen2_1 = false;
+	bool sen2_2 = false;
+	bool sen2_3 = false;
+	bool sen2_4 = false;
 
 	PhysBody3D* doorbody[2];
 	btHingeConstraint* doorhinge;
 
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
+
+	void allfalse();
 
 };

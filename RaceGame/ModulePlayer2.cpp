@@ -32,9 +32,7 @@ bool ModulePlayer2::Start()
 	car.frictionSlip = 1000;
 	car.maxSuspensionForce = 6000.0f;
 	//Timer
-	seconds = 0;
-	minutes = 0;
-	miliseconds = 0;
+	msec.Start();
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.2f;
 	float wheel_radius = 0.6f;
@@ -102,11 +100,18 @@ bool ModulePlayer2::Start()
 	car.wheels[3].steering = false;
 
 	vehicle2 = App->physics->AddVehicleP2(car);
-	vehicle2->SetPos(-1, 27, 30);
+	vehicle2->SetPos(-1, 35, 30);
+	App->camerap2->Follow(vehicle2, 10, 20, 1.0f);
 
-	//vehicle->SetPos(184, 12 + 15, 672.6-1.3);
-	//vehicle->SetPos(303.3 - 0.6, 8.35, 803.9 + 0.2);
-	App->camerap2->Follow(vehicle2, 10, 20, 1.f);
+	//App->player->vehicle->SetPos(2, 35, 30);
+	carcube.size.Set(1, 1, 1);
+	carcube.color = Red;
+	CarBodyCube = App->physics->AddBody(carcube, 0.01f);
+	CarBodyCube->SetPos(-1, 35, 25);
+	vec3 axis2(0, 0, -5);
+	vec3 axis1(0, -1, 0);
+	App->physics->AddConstraintHinge(*vehicle2, *CarBodyCube, axis2, axis1, { 0,1,0 }, { 0,5,0 }, false);
+
 	return true;
 }
 
@@ -154,7 +159,7 @@ update_status ModulePlayer2::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_UP || App->scene_intro->fallen2)
 	{
 		if (App->scene_intro->sen2_1 == false) {
-			vehicle2->SetPos(20, 27, 30);
+			vehicle2->SetPos(0, 27, 30);
 			vehicle2->SetTransform(IdentityMatrix.M);
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 0, 0));
@@ -162,17 +167,16 @@ update_status ModulePlayer2::Update(float dt)
 			App->scene_intro->fallen2 = false;
 		}
 		if (App->scene_intro->sen2_1 == true) {
-			vehicle2->SetTransform(IdentityMatrix.M);
 			vehicle2->SetPos(0.9, 27, 562);
-
+			vehicle2->SetTransform(IdentityMatrix.M);
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 0, 0));
 			brake = BRAKE_POWER;
 			App->scene_intro->fallen2 = false;
 		}
 		if (App->scene_intro->sen2_2 == true) {
-			vehicle2->SetTransform(IdentityMatrix.M);
 			vehicle2->SetPos(302, 27, 726.07);
+			vehicle2->SetTransform(IdentityMatrix.M);
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 320, 0));
 			brake = BRAKE_POWER;
@@ -180,6 +184,7 @@ update_status ModulePlayer2::Update(float dt)
 		}
 		if (App->scene_intro->sen2_3 == true) {
 			vehicle2->SetPos(184, 27, 671.3);
+			vehicle2->SetTransform(IdentityMatrix.M);
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 65, 0));
 			brake = BRAKE_POWER;
@@ -187,41 +192,25 @@ update_status ModulePlayer2::Update(float dt)
 		}
 		if (App->scene_intro->sen2_4 == true) {
 			vehicle2->SetPos(135, 27, 254.4);
+			vehicle2->SetTransform(IdentityMatrix.M);
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 320, 0));
 			brake = BRAKE_POWER;
 
 			App->scene_intro->fallen2 = false;
 		}
-		if (App->scene_intro->P1_Win == true || App->scene_intro->P2_Win == true) {
-			vehicle2->SetPos(2, 27, 30);
-			vehicle2->SetTransform(IdentityMatrix.M);
-			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
-			vehicle2->body->setAngularVelocity(btVector3(0, 0, 0));
-			brake = BRAKE_POWER;
-			App->scene_intro->fallen = false;
-			App->scene_intro->P2_Win == false;
-		}
 	}
-	miliseconds++;
-	if (miliseconds == 59) {
-		miliseconds = 0;
-		seconds++;
-	}
-	if (seconds == 59) {
-		seconds = 0;
-		minutes++;
-	}
-	minutesrecord = 0;
-	secondsrecord = 0;
+
 	vehicle2->ApplyEngineForce(acceleration);
 	vehicle2->Turn(turn);
 	vehicle2->Brake(brake);
-
 	vehicle2->Render();
 	Kmh = vehicle2->GetKmh();
 
-	title2.create("Player2: %.1f Km/h | %d m | %d s | Best Lap:", Kmh, minutes, seconds, minutesrecord, secondsrecord);
+	title2.create(" Player2: %.1f Km/h | %d m | %d s", Kmh, msec.Read()/1000/60, msec.Read() / 1000);
+
+	CarBodyCube->GetTransform(&carcube.transform);
+	carcube.Render();
 
 	return UPDATE_CONTINUE;
 }
