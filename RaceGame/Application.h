@@ -29,6 +29,8 @@ public:
 	ModulePlayer* player;
 	ModulePlayer2* player2;
 
+	Timer	ms_timer2;
+
 private:
 
 	Timer	ms_timer;
