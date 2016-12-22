@@ -52,7 +52,7 @@ bool ModuleSceneIntro::Start()
 	//Ramp 1 - UP
 	for (n = 0; n<80; ++n)
 	{
-		c[n].color = White;
+		c[n].color = Grey;
 	}
 
 	c[2].size.Set(road_width, road_height, 15);

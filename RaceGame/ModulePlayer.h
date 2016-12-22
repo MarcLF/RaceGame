@@ -6,7 +6,7 @@
 
 struct PhysVehicle3D;
 
-#define MAX_ACCELERATION 1500.0f
+#define MAX_ACCELERATION 1700.0f
 #define TURN_DEGREES 10.0f * DEGTORAD
 #define BRAKE_POWER 1000.0f
 
@@ -19,12 +19,12 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
-	int engine_fx, brake_fx;
+
 public:
 	
 	PhysVehicle3D* vehicle;
 	int miliseconds, seconds, minutes, minutesrecord, secondsrecord;
-
+	int engine_fx, brake_fx;
 	float turn;
 	float acceleration;
 	float brake;
