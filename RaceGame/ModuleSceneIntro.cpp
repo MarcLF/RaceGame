@@ -50,10 +50,19 @@ bool ModuleSceneIntro::Start()
 	App->physics->AddBody(c[1], 0)->collision_listeners.add(this);
 	
 	//Ramp 1 - UP
-	for (n = 0; n<80; ++n)
+	for (n = 0; n<74; ++n)
 	{
 		c[n].color = Grey;
 	}
+	for (n = 74; n<76; ++n)
+	{
+		c[n].color = White;
+	}
+	for (n = 0; n<30; ++n)
+	{
+		w[n].color = Black;
+	}
+	c[76].color = White;
 
 	c[2].size.Set(road_width, road_height, 15);
 	c[2].SetPos(0, 28.3, 112.5);
@@ -412,6 +421,79 @@ bool ModuleSceneIntro::Start()
 	c[73].SetPos(-159, 7.3, 125);
 	App->physics->AddBody(c[73], 0);
 
+	//Win Flag
+
+	c[74].size.Set(1,30, 1);
+	c[74].SetPos(-6, 40, -29);
+	App->physics->AddBody(c[74], 0);
+
+	c[75].size.Set(1, 30, 1);
+	c[75].SetPos(-6, 40, -46);
+	App->physics->AddBody(c[75], 0);
+
+	c[76].size.Set(0.5, 9, 17);
+	c[76].SetPos(-6, 50, -37);
+	App->physics->AddBody(c[76], 0);
+
+	//White Flag Win
+
+	w[0].size.Set(1, 2.25, 2.25);
+	w[0].SetPos(-6, 50, -37);
+	App->physics->AddBody(w[0], 0);
+
+	w[1].size.Set(1, 2.25, 2.25);
+	w[1].SetPos(-6, 50, -32.5);
+	App->physics->AddBody(w[1], 0);
+
+	w[2].size.Set(1, 2.25, 2.25);
+	w[2].SetPos(-6, 50, -41.5);
+	App->physics->AddBody(w[2], 0);
+
+	w[3].size.Set(1, 2.25, 2.25);
+	w[3].SetPos(-6, 50, -37);
+	App->physics->AddBody(w[3], 0);
+
+
+	w[4].size.Set(1, 2.25, 2.25);
+	w[4].SetPos(-6, 52.25, -37-2.25);
+	App->physics->AddBody(w[4], 0);
+
+	w[5].size.Set(1, 2.25, 2.25);
+	w[5].SetPos(-6, 52.25, -32.5-2.25);
+	App->physics->AddBody(w[5], 0);
+
+	w[6].size.Set(1, 2.25, 2.25);
+	w[6].SetPos(-6, 52.25, -41.5- 2.25);
+	App->physics->AddBody(w[6], 0);
+
+	w[7].size.Set(1, 2.25, 2.25);
+	w[7].SetPos(-6, 52.25, -37- 2.25);
+	App->physics->AddBody(w[7], 0);
+
+	w[8].size.Set(1, 2.25, 2.25);
+	w[8].SetPos(-6, 52.25, -32.5 + 2.25);
+	App->physics->AddBody(w[8], 0);
+
+	w[9].size.Set(1, 2.25, 2.25);
+	w[9].SetPos(-6, 52.25 - 4.5, -37 - 2.25);
+	App->physics->AddBody(w[9], 0);
+
+	w[10].size.Set(1, 2.25, 2.25);
+	w[10].SetPos(-6, 52.25 - 4.5, -32.5 - 2.25);
+	App->physics->AddBody(w[10], 0);
+
+	w[11].size.Set(1, 2.25, 2.25);
+	w[11].SetPos(-6, 52.25 - 4.5, -41.5 - 2.25);
+	App->physics->AddBody(w[11], 0);
+
+	w[12].size.Set(1, 2.25, 2.25);
+	w[12].SetPos(-6, 52.25 - 4.5, -37 - 2.25);
+	App->physics->AddBody(w[12], 0);
+
+	w[13].size.Set(1, 2.25, 2.25);
+	w[13].SetPos(-6, 52.25-4.5, -32.5 + 2.25);
+	App->physics->AddBody(w[13], 0);
+
 	//Sensor
 	sensor_flo = App->physics->AddBody(sensor_floor, 0.0f);
 	sensor_flo->SetAsSensor(true);
@@ -524,7 +606,11 @@ update_status ModuleSceneIntro::Update(float dt)
 	{
 		c[n].Render();
 	}
-	
+	for (n = 0; n<30; ++n)
+	{
+		w[n].Render();
+	}
+
 	
 	return UPDATE_CONTINUE;
 }

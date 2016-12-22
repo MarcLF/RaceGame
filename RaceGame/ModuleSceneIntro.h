@@ -39,8 +39,9 @@ public:
 	int Main_song;
 	int Crash_fx;
 	int Sound_win;
-
+	
 	Cube c[80];
+	Cube w[30];
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;
 	
