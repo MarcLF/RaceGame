@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "PhysBody3D.h"
 #include "ModuleCamera3DP2.h"
-#include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "PhysVehicle3D.h"
 

@@ -21,6 +21,7 @@ public:
 	void OnResize(int width, int height, int x);
 
 public:
+	int t = 0;
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;
 	SDL_GLContext context2;
