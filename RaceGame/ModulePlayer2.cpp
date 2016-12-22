@@ -159,40 +159,40 @@ update_status ModulePlayer2::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_UP || App->scene_intro->fallen2)
 	{
 		if (App->scene_intro->sen2_1 == false) {
-			vehicle2->SetPos(0, 27, 30);
 			vehicle2->SetTransform(IdentityMatrix.M);
+			vehicle2->SetPos(-1, 27, 30);
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 0, 0));
 			brake = BRAKE_POWER;
 			App->scene_intro->fallen2 = false;
 		}
 		if (App->scene_intro->sen2_1 == true) {
-			vehicle2->SetPos(0.9, 27, 562);
 			vehicle2->SetTransform(IdentityMatrix.M);
+			vehicle2->SetPos(0.9, 27, 562);
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 0, 0));
 			brake = BRAKE_POWER;
 			App->scene_intro->fallen2 = false;
 		}
 		if (App->scene_intro->sen2_2 == true) {
-			vehicle2->SetPos(302, 27, 726.07);
 			vehicle2->SetTransform(IdentityMatrix.M);
+			vehicle2->SetPos(302, 27, 726.07);
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 320, 0));
 			brake = BRAKE_POWER;
 			App->scene_intro->fallen2 = false;
 		}
 		if (App->scene_intro->sen2_3 == true) {
-			vehicle2->SetPos(184, 27, 671.3);
 			vehicle2->SetTransform(IdentityMatrix.M);
+			vehicle2->SetPos(184, 27, 671.3);
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 65, 0));
 			brake = BRAKE_POWER;
 			App->scene_intro->fallen2 = false;
 		}
 		if (App->scene_intro->sen2_4 == true) {
-			vehicle2->SetPos(135, 27, 254.4);
 			vehicle2->SetTransform(IdentityMatrix.M);
+			vehicle2->SetPos(135, 27, 254.4);
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 320, 0));
 			brake = BRAKE_POWER;
