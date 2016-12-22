@@ -43,7 +43,6 @@ bool ModuleSceneIntro::Start()
 	sen2_2 = false;
 	sen2_3 = false;
 	sen2_4 = true;
-
 	
 	sensor_floor = { 1000,1,2000 };
 	sensor_form = { road_width, road_height * 3, 1 };
@@ -440,23 +439,25 @@ bool ModuleSceneIntro::Start()
 	c[76].SetPos(-6, 50, -37);
 	App->physics->AddBody(c[76], 0);
 
-	c[77].size.Set(road_width/4, road_height*5, 15);
+	/*c[77].size.Set(road_width/4, road_height*5, 15);
 	c[77].SetPos(0, 38, 40);
 	c[77].SetRotation(90, vec3(0.0f, -1.0f, 0.0f));
-	doorbody[0] = App->physics->AddBody(c[77], 0);
+	doorbody[0] = App->physics->AddBody(c[77], 0.1f);
 
 	c[78].size.Set(1, 1, 1);
 	c[78].SetPos(10, 38, 40);
-	App->physics->AddBody(c[78], 0);
-	doorbody[1] = App->physics->AddBody(c[78], 0);
+	doorbody[1] = App->physics->AddBody(c[78], 0.1f);
 
-	btVector3 vec1 = { 0, 0, 0 };
-	btVector3 vec2 = { 0, 0, 0 };
+	btVector3 vec1( 0, 1, 0 );
+	btVector3 vec2( 0, 1, 0 );
 
-	doorhinge = App->physics->Add_Hinge_Constraint(*doorbody[0]->body, *doorbody[1]->body, { 0, 0, 0 }, { 0, 0, 0 }, vec1, vec2, false);
-	doorhinge->setLimit(0, 45);
+	btVector3 piv1(0, 0, 0);
+	btVector3 piv2(0, 0, 0);
+
+	doorhinge = App->physics->Add_Hinge_Constraint(*doorbody[0]->body, *doorbody[1]->body, piv1, piv2, vec1, vec2, false);
+	doorhinge->setLimit(90, 90);
 	doorhinge->setMaxMotorImpulse(10.0f);
-	doorhinge->enableMotor(true);
+	doorhinge->enableMotor(true);*/
 
 	//White Flag Win
 
@@ -634,15 +635,9 @@ bool ModuleSceneIntro::CleanUp()
 	return true;
 }
 
-
-
-
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	/*Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();*/
 	for (n = 0; n<80; ++n)
 	{
 		c[n].Render();
@@ -652,10 +647,6 @@ update_status ModuleSceneIntro::Update(float dt)
 		w[n].Render();
 	}
 
-	doorhinge->setMotorTargetVelocity(200);
-
-
-	
 	return UPDATE_CONTINUE;
 }
 

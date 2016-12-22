@@ -3,6 +3,9 @@
 #include "Globals.h"
 #include "p2Point.h"
 #include "p2SString.h"
+#include "p2DynArray.h"
+#include "Primitive.h"
+#include "p2Point.h"
 
 struct PhysVehicle3D;
 
@@ -19,6 +22,9 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
+
+	Cube carcube;
+	PhysBody3D* CarBodyCube;
 
 public:
 	

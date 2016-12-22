@@ -25,7 +25,6 @@ bool ModulePlayer::Start()
 
 	car.chassis_size.Set(2, 1, 4);
 	car.chassis_offset.Set(0, 1, 0);
-	
 
 	car.mass = 650.0f;
 	car.suspensionStiffness = 11.85f;
@@ -106,16 +105,19 @@ bool ModulePlayer::Start()
 	car.wheels[3].brake = true;
 	car.wheels[3].steering = false;
 
-
 	vehicle = App->physics->AddVehicle(car);
 
-
-
-	vehicle->SetPos(2, 27, 30);
+	vehicle->SetPos(2, 40, 30);
 	vehicle->GetTransform(IdentityMatrix.M);
-	//vehicle->SetPos(184, 12 + 15, 672.6-1.3);
-	//vehicle->SetPos(303.3 - 0.6, 8.35, 803.9 + 0.2);
 	App->camera->Follow(vehicle, 10, 20, 1.f);
+
+	carcube.size.Set(1, 1, 1);
+	carcube.color = Red;
+	CarBodyCube = App->physics->AddBody(carcube, 0.01f);
+	vec3 axis2(0, 0, -5);
+	vec3 axis1(0, -1, 0);
+	App->physics->AddConstraintHinge(*vehicle, *CarBodyCube, axis2, axis1, { 0,1,0 }, { 0,5,0 }, false);
+
 	return true;
 }
 
@@ -238,6 +240,9 @@ update_status ModulePlayer::Update(float dt)
 
 	printf_s(title_print);
 	App->window->SetTitle(title_print);
+
+	CarBodyCube->GetTransform(&carcube.transform);
+	carcube.Render();
 
 	return UPDATE_CONTINUE;
 }
