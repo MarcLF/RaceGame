@@ -114,13 +114,13 @@ bool ModulePlayer::Start()
 	vehicle->GetTransform(IdentityMatrix.M);
 	App->camera->Follow(vehicle, 10, 20, 1.f);
 
-	/*carcube.size.Set(1, 1, 1);
+	carcube.size.Set(1, 1, 1);
 	carcube.color = Red;
 	CarBodyCube = App->physics->AddBody(carcube, 0.01f);
 	CarBodyCube->SetPos(2, 35, 25);
 	vec3 axis2(0, 0, -5);
 	vec3 axis1(0, -1, 0);
-	App->physics->AddConstraintHinge(*vehicle, *CarBodyCube, axis2, axis1, { 0,1,0 }, { 0,5,0 }, false);*/
+	App->physics->AddConstraintHinge(*vehicle, *CarBodyCube, axis2, axis1, { 0,1,0 }, { 0,5,0 }, false);
 
 	return true;
 }
