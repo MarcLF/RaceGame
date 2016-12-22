@@ -26,6 +26,12 @@ public:
 
 	//The surface contained by the window
 	SDL_Surface* screen_surface;
+
+	//The window we'll be rendering to
+	SDL_Window* window2;
+
+	//The surface contained by the window
+	SDL_Surface* screen_surface2;
 };
 
 #endif // __ModuleWindow_H__

@@ -21,6 +21,7 @@ bool ModuleSceneIntro::Start()
 	minutes = 0;
 	seconds = 0;
 	App->camera->Move(vec3(-1.0f, 0.0f, -10.0f));
+	App->camerap2->Move(vec3(-1.0f, 0.0f, -10.0f));
 
 	sensor_form = { 1000,1,2000 };
 	float road_width = 12.0f;
@@ -396,19 +397,12 @@ bool ModuleSceneIntro::Start()
 	c[73].SetPos(-159, 7.3, 125);
 	App->physics->AddBody(c[73], 0);
 
-
-
-
-	
-
-
 	//Sensor
 	sensor1 = App->physics->AddBody(sensor_form, 0.0f);
 	sensor1->SetAsSensor(true);
 	sensor1->SetPos(0, 0, 0);
 	sensor1->GetTransform(&sensor_form.transform);
 	sensor1->collision_listeners.add(this);
-
 
 	/*s[1].size = vec3(1000, 1, 2000);
 	s[1].SetPos(0, 0, 0);
