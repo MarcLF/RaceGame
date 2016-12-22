@@ -24,7 +24,6 @@ bool ModuleRenderer3D::Init()
 
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
-//	context2 = context;
 
 	if (context == NULL)
 	{
@@ -107,19 +106,22 @@ bool ModuleRenderer3D::Init()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
+	int t = SDL_GetTicks();
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT, 0);
 
-	if (App->player->seconds % 2)
+	if (t % 2)
 	{
+		OnResize(SCREEN_WIDTH, SCREEN_HEIGHT, -100);
 		SDL_GL_MakeCurrent(App->window->window, context);
 		glLoadMatrixf(App->camera->GetViewMatrix());
 	}
 	else
 	{
+		OnResize(SCREEN_WIDTH, SCREEN_HEIGHT, 0);
 		SDL_GL_MakeCurrent(App->window->window2, context);
 		glLoadMatrixf(App->camerap2->GetViewMatrix());
 	}
