@@ -40,14 +40,35 @@ public:
 	Cube p_chassis;
 	
 	Cube sensor_form;
-	PhysBody3D* sensor1;
+
+	Cube sensor_form2;
+	Cube sensor_floor;
+
+	PhysBody3D* sensor_1;
+	PhysBody3D* sensor_2;
+	PhysBody3D* sensor_3;
+	PhysBody3D* sensor_4;
+	PhysBody3D* sensor_flo;
 	
 	PhysBody3D* pb_wheel;
 	Cylinder p_wheel;
 
 	PhysBody3D* pb_wheel2;
 	Cylinder p_wheel2;
+
 	bool fallen;
+	bool fallen2;
+
+	bool sen_1;
+	bool sen_2;
+	bool sen_3;
+	bool sen_4;
+	bool sen2_1;
+	bool sen2_2;
+	bool sen2_3;
+	bool sen2_4;
+
+
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
 };

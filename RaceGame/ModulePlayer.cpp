@@ -146,18 +146,49 @@ update_status ModulePlayer::Update(float dt)
 	{
 		brake = BRAKE_POWER;
 	}
-	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_UP || App->scene_intro->fallen == true)
+	if (App->input->GetKey(SDL_SCANCODE_G) == KEY_UP || App->scene_intro->fallen)
 	{
-
-		vehicle->SetPos(2, 30, 30);
-		vehicle->SetTransform(IdentityMatrix.M);
-		vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
-		vehicle->body->setAngularVelocity(btVector3(0, 90, 0));
-		brake = BRAKE_POWER;
-		App->scene_intro->fallen = false;
-		recover_camera = true;
-	
-	}
+		if (App->scene_intro->sen_1 == false) {
+			vehicle->SetPos(2, 27, 30);
+			vehicle->SetTransform(IdentityMatrix.M);
+			vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
+			vehicle->body->setAngularVelocity(btVector3(0, 0, 0));
+			brake = BRAKE_POWER;
+			App->scene_intro->fallen = false;
+		}
+		if (App->scene_intro->sen_1 == true) {
+			vehicle->SetTransform(IdentityMatrix.M);
+			vehicle->SetPos(0.9, 27, 562);
+			
+			vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
+			vehicle->body->setAngularVelocity(btVector3(0, 0, 0));
+			brake = BRAKE_POWER;
+			App->scene_intro->fallen = false;
+		}
+		if (App->scene_intro->sen_2 == true) {
+			vehicle->SetTransform(IdentityMatrix.M);
+			vehicle->SetPos(302, 27, 726.07);
+			vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
+			vehicle->body->setAngularVelocity(btVector3(0, 320, 0));
+			brake = BRAKE_POWER;
+			App->scene_intro->fallen = false;
+		}
+		if (App->scene_intro->sen_3 == true) {
+			vehicle->SetPos(184, 27, 671.3);
+			vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
+			vehicle->body->setAngularVelocity(btVector3(0, 65, 0));
+			brake = BRAKE_POWER;
+			App->scene_intro->fallen = false;
+		}
+		if (App->scene_intro->sen_4 == true) {
+			vehicle->SetPos(125.2, 27, 254.4);
+			vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
+			vehicle->body->setAngularVelocity(btVector3(0, 320, 0));
+			brake = BRAKE_POWER;
+		
+			App->scene_intro->fallen = false;
+		}
+	}//302, 27, 726.07
 	miliseconds++;
 	if (miliseconds == 59) {
 		miliseconds = 0;

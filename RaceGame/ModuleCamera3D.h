@@ -34,4 +34,6 @@ private:
 	float max_following_dist;
 	float following_height;
 
+	void LookAt(const vec3 & Spot);
+
 };

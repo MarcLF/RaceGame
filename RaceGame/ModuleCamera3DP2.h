@@ -13,7 +13,8 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = true);
+	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
+	void LookAt(const vec3 &Spot);
 	void Follow(PhysBody3D* body, float min, float max, float height);
 	void UnFollow();
 	void Move(const vec3 &Movement);
@@ -25,7 +26,7 @@ private:
 
 public:
 
-	vec3 X, Y, Z, Position, Reference, Angle;
+	vec3 X, Y, Z, Position, Reference, Angle, camera_x, camera_z;
 
 private:
 	mat4x4 ViewMatrix, ViewMatrixInverse;

@@ -44,11 +44,11 @@ update_status ModuleCamera3D::Update(float dt)
 {
 	// Implement a debug camera with keys and mouse
 	// Now we can make this movememnt frame rate independant!
-	if ( App->player->recover_camera==true) {
+	if (App->input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT) {
 		Position.x = Reference.x;
-		Position.y = Reference.y + 4;
-		Position.z = Reference.z-10;
-		App->player->recover_camera = false;
+		Position.y = Reference.y + 9;
+		Position.z = Reference.z - 10;
+
 	}
 	if (following != NULL && App->player->Kmh >1 || App->player->Kmh <-1)
 	{
@@ -58,7 +58,7 @@ update_status ModuleCamera3D::Update(float dt)
 		Look(Position, m.translation(), true);
 		
 		// Correct height
-		Position.y = 4 + Reference.y;
+		Position.y = 9 + Reference.y;
 		
 		// Correct distance
 		vec3 cam_to_target = m.translation() - Position;
