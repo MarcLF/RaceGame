@@ -32,6 +32,7 @@ Application::Application()
 
 	// Renderer last!
 	AddModule(renderer3D);
+
 }
 
 Application::~Application()
@@ -69,7 +70,6 @@ bool Application::Init()
 	}
 	
 	ms_timer.Start();
-	ms_timer2.Start();
 	return ret;
 }
 
@@ -78,8 +78,6 @@ void Application::PrepareUpdate()
 {
 	dt = (float)ms_timer.Read() / 1000.0f;
 	ms_timer.Start();
-
-	ms_timer2.Start();
 }
 
 // ---------------------------------------------

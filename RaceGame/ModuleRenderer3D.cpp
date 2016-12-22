@@ -113,7 +113,7 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	if (App->ms_timer2.Read() % 2)
+	if (t % 2)
 	{
 		OnResize(SCREEN_WIDTH, SCREEN_HEIGHT, -100);
 		SDL_GL_MakeCurrent(App->window->window, context);
