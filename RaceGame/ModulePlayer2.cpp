@@ -100,7 +100,7 @@ bool ModulePlayer2::Start()
 	car.wheels[3].brake = true;
 	car.wheels[3].steering = false;
 
-	vehicle2 = App->physics->AddVehicle(car);
+	vehicle2 = App->physics->AddVehicleP2(car);
 	vehicle2->SetPos(-1, 27, 30);
 
 	//vehicle->SetPos(184, 12 + 15, 672.6-1.3);
@@ -149,12 +149,12 @@ update_status ModulePlayer2::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_P) == KEY_UP || App->scene_intro->fallen2)
 	{
 		if (App->scene_intro->sen2_1 == false) {
-			vehicle2->SetPos(2, 27, 30);
+			vehicle2->SetPos(20, 27, 30);
 			vehicle2->SetTransform(IdentityMatrix.M);
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 0, 0));
 			brake = BRAKE_POWER;
-			App->scene_intro->fallen = false;
+			App->scene_intro->fallen2 = false;
 		}
 		if (App->scene_intro->sen2_1 == true) {
 			vehicle2->SetTransform(IdentityMatrix.M);
@@ -163,7 +163,7 @@ update_status ModulePlayer2::Update(float dt)
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 0, 0));
 			brake = BRAKE_POWER;
-			App->scene_intro->fallen = false;
+			App->scene_intro->fallen2 = false;
 		}
 		if (App->scene_intro->sen2_2 == true) {
 			vehicle2->SetTransform(IdentityMatrix.M);
@@ -171,14 +171,14 @@ update_status ModulePlayer2::Update(float dt)
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 320, 0));
 			brake = BRAKE_POWER;
-			App->scene_intro->fallen = false;
+			App->scene_intro->fallen2 = false;
 		}
 		if (App->scene_intro->sen2_3 == true) {
 			vehicle2->SetPos(184, 27, 671.3);
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 65, 0));
 			brake = BRAKE_POWER;
-			App->scene_intro->fallen = false;
+			App->scene_intro->fallen2 = false;
 		}
 		if (App->scene_intro->sen2_4 == true) {
 			vehicle2->SetPos(125.2, 27, 254.4);
@@ -186,7 +186,7 @@ update_status ModulePlayer2::Update(float dt)
 			vehicle2->body->setAngularVelocity(btVector3(0, 320, 0));
 			brake = BRAKE_POWER;
 
-			App->scene_intro->fallen = false;
+			App->scene_intro->fallen2 = false;
 		}
 	}
 	miliseconds++;

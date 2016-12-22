@@ -94,3 +94,97 @@ float PhysVehicle3D::GetKmh() const
 {
 	return vehicle->getCurrentSpeedKmHour();
 }
+
+// Player 2
+
+VehicleInfoP2::~VehicleInfoP2()
+{
+	//if(wheels != NULL)
+	//delete wheels;
+}
+
+// ----------------------------------------------------------------------------
+PhysVehicle3DP2::PhysVehicle3DP2(btRigidBody* body, btRaycastVehicle* vehicle, const VehicleInfo& info) : PhysBody3D(body), vehicle(vehicle), info(info)
+{
+}
+
+// ----------------------------------------------------------------------------
+PhysVehicle3DP2::~PhysVehicle3DP2()
+{
+	delete vehicle;
+}
+
+// ----------------------------------------------------------------------------
+void PhysVehicle3DP2::Render()
+{
+	Cylinder wheel;
+
+	wheel.color = Red;
+
+	for (int i = 0; i < vehicle->getNumWheels(); ++i)
+	{
+		wheel.radius = info.wheels[0].radius;
+		wheel.height = info.wheels[0].width;
+
+		vehicle->updateWheelTransform(i);
+		vehicle->getWheelInfo(i).m_worldTransform.getOpenGLMatrix(&wheel.transform);
+
+		wheel.Render();
+	}
+
+	Cube chassis(info.chassis_size.x, info.chassis_size.y, info.chassis_size.z);
+	chassis.color = Black;
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&chassis.transform);
+	btQuaternion q = vehicle->getChassisWorldTransform().getRotation();
+	btVector3 offset(info.chassis_offset.x, info.chassis_offset.y, info.chassis_offset.z);
+	offset = offset.rotate(q.getAxis(), q.getAngle());
+
+	chassis.transform.M[12] += offset.getX();
+	chassis.transform.M[13] += offset.getY();
+	chassis.transform.M[14] += offset.getZ();
+
+
+	chassis.Render();
+}
+
+// ----------------------------------------------------------------------------
+void PhysVehicle3DP2::ApplyEngineForce(float force)
+{
+	for (int i = 0; i < vehicle->getNumWheels(); ++i)
+	{
+		if (info.wheels[i].drive == true)
+		{
+			vehicle->applyEngineForce(force, i);
+		}
+	}
+}
+
+// ----------------------------------------------------------------------------
+void PhysVehicle3DP2::Brake(float force)
+{
+	for (int i = 0; i < vehicle->getNumWheels(); ++i)
+	{
+		if (info.wheels[i].brake == true)
+		{
+			vehicle->setBrake(force, i);
+		}
+	}
+}
+
+// ----------------------------------------------------------------------------
+void PhysVehicle3DP2::Turn(float degrees)
+{
+	for (int i = 0; i < vehicle->getNumWheels(); ++i)
+	{
+		if (info.wheels[i].steering == true)
+		{
+			vehicle->setSteeringValue(degrees, i);
+		}
+	}
+}
+
+// ----------------------------------------------------------------------------
+float PhysVehicle3DP2::GetKmh() const
+{
+	return vehicle->getCurrentSpeedKmHour();
+}

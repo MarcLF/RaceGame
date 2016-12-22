@@ -4,7 +4,7 @@
 #include "p2Point.h"
 #include "p2SString.h"
 
-struct PhysVehicle3D;
+struct PhysVehicle3DP2;
 
 #define MAX_ACCELERATION 1000.0f
 #define TURN_DEGREES 15.0f * DEGTORAD
@@ -23,7 +23,7 @@ public:
 	p2SString title2;
 public:
 
-	PhysVehicle3D* vehicle2;
+	PhysVehicle3DP2* vehicle2;
 	int miliseconds, seconds, minutes, minutesrecord, secondsrecord;
 
 	float turn;

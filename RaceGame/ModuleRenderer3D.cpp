@@ -106,14 +106,12 @@ bool ModuleRenderer3D::Init()
 // PreUpdate: clear buffer
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
-	t = SDL_GetTicks();
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	if (t % 2)
+	if (t == 1)
 	{
 		OnResize(SCREEN_WIDTH, SCREEN_HEIGHT, -100);
 		SDL_GL_MakeCurrent(App->window->window, context);
@@ -128,9 +126,15 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+	lights[8].SetPos(App->camerap2->Position.x, App->camerap2->Position.y, App->camerap2->Position.z);
 
 	for (uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
+
+	if (t == 1)
+		t = 0;
+	else
+		t = 1;
 
 	return UPDATE_CONTINUE;
 }
@@ -154,7 +158,7 @@ bool ModuleRenderer3D::CleanUp()
 {
 	LOG("Destroying 3D Renderer");
 	SDL_GL_DeleteContext(context);
-	SDL_GL_DeleteContext(context2);
+
 	return true;
 }
 

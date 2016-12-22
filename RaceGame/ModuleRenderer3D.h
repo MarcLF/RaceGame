@@ -4,7 +4,7 @@
 #include "glmath.h"
 #include "Light.h"
 
-#define MAX_LIGHTS 8
+#define MAX_LIGHTS 9
 
 class ModuleRenderer3D : public Module
 {

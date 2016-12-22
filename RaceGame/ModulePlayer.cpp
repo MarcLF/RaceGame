@@ -206,7 +206,6 @@ update_status ModulePlayer::Update(float dt)
 
 	vehicle->Render();
 	Kmh = vehicle->GetKmh();
-
 	
 	title.create("Player1: %.1f Km/h | %d m | %d s | Best Lap:", Kmh, minutes, seconds, minutesrecord, secondsrecord);
 

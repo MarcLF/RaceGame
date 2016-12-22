@@ -12,6 +12,7 @@
 class DebugDrawer;
 struct PhysBody3D;
 struct PhysVehicle3D;
+struct PhysVehicle3DP2;
 struct VehicleInfo;
 
 class ModulePhysics3D : public Module
@@ -31,6 +32,7 @@ public:
 	PhysBody3D* AddBody(const Cube& cube, float mass = 1.0f);
 	PhysBody3D* AddBody(const Cylinder& cylinder, float mass = 1.0f);
 	PhysVehicle3D* AddVehicle(const VehicleInfo& info);
+	PhysVehicle3DP2* AddVehicleP2(const VehicleInfo& info);
 
 	void AddConstraintP2P(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB);
 	void AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, const vec3& anchorA, const vec3& anchorB, const vec3& axisS, const vec3& axisB, bool disable_collision = false);
@@ -54,6 +56,7 @@ private:
 	p2List<btDefaultMotionState*> motions;
 	p2List<btTypedConstraint*> constraints;
 	p2List<PhysVehicle3D*> vehicles;
+	p2List<PhysVehicle3DP2*> vehiclesp2;
 };
 
 class DebugDrawer : public btIDebugDraw
