@@ -23,6 +23,11 @@ bool ModuleSceneIntro::Start()
 	App->camera->Move(vec3(-1.0f, 0.0f, -10.0f));
 	App->camerap2->Move(vec3(-1.0f, 0.0f, -10.0f));
 
+	App->audio->PlayMusic("Game/Music/Soundtrack.ogg", 1);
+	Crash_fx = App->audio->LoadFx("Game/Fx/crashfx.wav");
+	Sound_win = App->audio->LoadFx("Game/Fx/SoundWin.wav");
+
+
 	
 	float road_width = 12.0f;
 	float road_height = 3.0f;
@@ -445,7 +450,9 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 
 	if (body1 == sensor_flo && body2 == App->player->vehicle)
 	{
+		
 		fallen = true;
+		Crash_fx = App->audio->LoadFx("Game/Fx/crashfx.wav");
 		LOG("HIT!");
 	}
 	if (body1 == sensor_1 && body2 == App->player->vehicle)
@@ -471,6 +478,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	///2nd player
 	if (body1 == sensor_flo && body2 == App->player2->vehicle2)
 	{
+		Crash_fx = App->audio->LoadFx("Game/Fx/crashfx.wav");
 		fallen2 = true;
 		LOG("HIT!");
 	}

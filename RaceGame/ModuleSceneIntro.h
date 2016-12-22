@@ -35,6 +35,11 @@ public:
 	Cube s[10];
 	int minutes, n;
 	int seconds;
+
+	int Main_song;
+	int Crash_fx;
+	int Sound_win;
+
 	Cube c[80];
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;

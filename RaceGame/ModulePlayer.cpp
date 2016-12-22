@@ -24,7 +24,7 @@ bool ModulePlayer::Start()
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 1, 4);
 	car.chassis_offset.Set(0, 1, 0);
-	car.mass = 500.0f;
+	car.mass = 650.0f;
 	car.suspensionStiffness = 11.85f;
 	car.suspensionCompression = 0.83f;
 	car.suspensionDamping = 0.3;
@@ -35,6 +35,9 @@ bool ModulePlayer::Start()
 	seconds = 0;
 	minutes = 0;
 	miliseconds = 0;
+	brake_fx = App->audio->LoadFx("Game/Fx/brakefx.wav");
+	engine_fx = App->audio->LoadFx("Game/Fx/engine.wav");
+
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.2f;
 	float wheel_radius = 0.6f;
@@ -124,6 +127,7 @@ update_status ModulePlayer::Update(float dt)
 	
 	if(App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
 	{
+		App->audio->PlayFx(engine_fx);
 		acceleration = MAX_ACCELERATION;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
@@ -141,7 +145,11 @@ update_status ModulePlayer::Update(float dt)
 		if(turn > -TURN_DEGREES)
 			turn -= TURN_DEGREES;
 	}
-
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		App->audio->PlayFx(brake_fx);
+	}
+	
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
 		brake = BRAKE_POWER;

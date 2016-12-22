@@ -6,8 +6,8 @@
 
 struct PhysVehicle3D;
 
-#define MAX_ACCELERATION 1000.0f
-#define TURN_DEGREES 15.0f * DEGTORAD
+#define MAX_ACCELERATION 1500.0f
+#define TURN_DEGREES 10.0f * DEGTORAD
 #define BRAKE_POWER 1000.0f
 
 class ModulePlayer : public Module
@@ -19,7 +19,7 @@ public:
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
-
+	int engine_fx, brake_fx;
 public:
 	
 	PhysVehicle3D* vehicle;
