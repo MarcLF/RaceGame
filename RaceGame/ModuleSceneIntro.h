@@ -78,6 +78,8 @@ public:
 	bool sen2_3;
 	bool sen2_4;
 
+	PhysBody3D* doorbody[2];
+	btHingeConstraint* doorhinge;
 
 	PhysMotor3D* left_wheel;
 	PhysMotor3D* right_wheel;
