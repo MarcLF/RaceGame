@@ -25,7 +25,7 @@ public:
 
 	PhysVehicle3DP2* vehicle2;
 	int miliseconds, seconds, minutes, minutesrecord, secondsrecord;
-
+	int engine_fx, brake_fx;
 	float turn;
 	float acceleration;
 	float brake;

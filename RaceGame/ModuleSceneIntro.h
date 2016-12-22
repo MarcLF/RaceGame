@@ -38,15 +38,16 @@ public:
 
 	int Main_song;
 	int Crash_fx;
-	int Sound_win;
+	int P1_Win;
+	int P2_Win;
 	
 	Cube c[80];
-	Cube w[30];
+	Cube w[14];
 	PhysBody3D* pb_chassis;
 	Cube p_chassis;
 	
 	Cube sensor_form;
-
+	Cube sensor_finish;
 	Cube sensor_form2;
 	Cube sensor_floor;
 
@@ -54,6 +55,7 @@ public:
 	PhysBody3D* sensor_2;
 	PhysBody3D* sensor_3;
 	PhysBody3D* sensor_4;
+	PhysBody3D* sensor_5;
 	PhysBody3D* sensor_flo;
 	
 	PhysBody3D* pb_wheel;
@@ -64,6 +66,8 @@ public:
 
 	bool fallen;
 	bool fallen2;
+	bool winnerp1;
+	bool winnerp2;
 
 	bool sen_1;
 	bool sen_2;

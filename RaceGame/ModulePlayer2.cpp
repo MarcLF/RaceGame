@@ -40,7 +40,8 @@ bool ModulePlayer2::Start()
 	float wheel_radius = 0.6f;
 	float wheel_width = 0.5f;
 	float suspensionRestLength = 1.2f;
-
+	brake_fx = App->audio->LoadFx("Game/Fx/brakefx.wav");
+	engine_fx = App->audio->LoadFx("Game/Fx/engine.wav");
 	// Don't change anything below this line ------------------
 
 	float half_width = car.chassis_size.x*0.5f;
@@ -124,6 +125,7 @@ update_status ModulePlayer2::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 	{
+		App->audio->PlayFx(engine_fx);
 		acceleration = MAX_ACCELERATION;
 	}
 	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
@@ -141,7 +143,10 @@ update_status ModulePlayer2::Update(float dt)
 		if (turn > -TURN_DEGREES)
 			turn -= TURN_DEGREES;
 	}
-
+	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_DOWN)
+	{
+		App->audio->PlayFx(brake_fx);
+	}
 	if (App->input->GetKey(SDL_SCANCODE_0) == KEY_REPEAT)
 	{
 		brake = BRAKE_POWER;
@@ -181,12 +186,21 @@ update_status ModulePlayer2::Update(float dt)
 			App->scene_intro->fallen2 = false;
 		}
 		if (App->scene_intro->sen2_4 == true) {
-			vehicle2->SetPos(125.2, 27, 254.4);
+			vehicle2->SetPos(135, 27, 254.4);
 			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle2->body->setAngularVelocity(btVector3(0, 320, 0));
 			brake = BRAKE_POWER;
 
 			App->scene_intro->fallen2 = false;
+		}
+		if (App->scene_intro->P1_Win == true || App->scene_intro->P2_Win == true) {
+			vehicle2->SetPos(2, 27, 30);
+			vehicle2->SetTransform(IdentityMatrix.M);
+			vehicle2->body->setLinearVelocity(btVector3(0, 0, 0));
+			vehicle2->body->setAngularVelocity(btVector3(0, 0, 0));
+			brake = BRAKE_POWER;
+			App->scene_intro->fallen = false;
+			App->scene_intro->P2_Win == false;
 		}
 	}
 	miliseconds++;

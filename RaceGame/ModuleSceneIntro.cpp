@@ -25,14 +25,16 @@ bool ModuleSceneIntro::Start()
 
 	App->audio->PlayMusic("Game/Music/Soundtrack.ogg", 1);
 	Crash_fx = App->audio->LoadFx("Game/Fx/crashfx.wav");
-	Sound_win = App->audio->LoadFx("Game/Fx/SoundWin.wav");
-
+	P1_Win = App->audio->LoadFx("Game/Fx/P1_Wins.wav");
+	P2_Win = App->audio->LoadFx("Game/Fx/P2_Wins.wav");
 
 	
 	float road_width = 12.0f;
 	float road_height = 3.0f;
 	fallen = false;
 	fallen2 = false;
+	winnerp1 = false;
+	winnerp2 = false;
 	sen_1 = false;
 	sen_2 = false;
 	sen_3 = false;
@@ -41,10 +43,13 @@ bool ModuleSceneIntro::Start()
 	sen2_2 = false;
 	sen2_3 = false;
 	sen2_4 = true;
+
 	
 	sensor_floor = { 1000,1,2000 };
 	sensor_form = { road_width, road_height * 3, 1 };
 	sensor_form2 = { 1, road_height * 3, road_width };
+	sensor_finish = { 1, 30, 21 };
+	
 	c[1].size.Set(road_width, road_height, 150);
 	c[1].SetPos(0, 27, 30);
 	App->physics->AddBody(c[1], 0)->collision_listeners.add(this);
@@ -58,7 +63,7 @@ bool ModuleSceneIntro::Start()
 	{
 		c[n].color = White;
 	}
-	for (n = 0; n<30; ++n)
+	for (n = 0; n<14; ++n)
 	{
 		w[n].color = Black;
 	}
@@ -521,9 +526,15 @@ bool ModuleSceneIntro::Start()
 
 	sensor_4 = App->physics->AddBody(sensor_form2, 0.0f);
 	sensor_4->SetAsSensor(true);
-	sensor_4->SetPos(125.2, 27, 254.4);
+	sensor_4->SetPos(135, 27, 254.4);
 	sensor_4->GetTransform(&sensor_form2.transform);
 	sensor_4->collision_listeners.add(this);
+
+	sensor_5 = App->physics->AddBody(sensor_finish, 0.0f);
+	sensor_5->SetAsSensor(true);
+	sensor_5->SetPos(-6, 40, -38);
+	sensor_5->GetTransform(&sensor_form2.transform);
+	sensor_5->collision_listeners.add(this);
 	//	//x=0,	y=56.1,	z=193	2, 27, 30*/
 	return ret;
 }
@@ -557,6 +568,12 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		sen_4 = true;
 		LOG("HIT!");
 	}
+	if (body1 == sensor_5 && body2 == App->player->vehicle && sen_4 == true)
+	{
+		P1_Win = App->audio->LoadFx("Game/Fx/P1_Wins.wav");
+		winnerp1 = true;
+		LOG("HIT!");
+	}
 	///2nd player
 	if (body1 == sensor_flo && body2 == App->player2->vehicle2)
 	{
@@ -584,6 +601,13 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		sen2_4 = true;
 		LOG("HIT!");
 	}
+	if (body1 == sensor_5 && body2 == App->player2->vehicle2 && sen2_4 == true)
+	{
+		P2_Win = App->audio->LoadFx("Game/Fx/P2_Wins.wav");
+		winnerp2 = true;
+		LOG("HIT!");
+	}
+
 }
 // Load assets
 bool ModuleSceneIntro::CleanUp()
@@ -606,7 +630,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	{
 		c[n].Render();
 	}
-	for (n = 0; n<30; ++n)
+	for (n = 0; n<14; ++n)
 	{
 		w[n].Render();
 	}

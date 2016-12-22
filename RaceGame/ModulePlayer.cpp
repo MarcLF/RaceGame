@@ -38,15 +38,15 @@ bool ModulePlayer::Start()
 	seconds = 0;
 	minutes = 0;
 	miliseconds = 0;
+
 	brake_fx = App->audio->LoadFx("Game/Fx/brakefx.wav");
 	engine_fx = App->audio->LoadFx("Game/Fx/engine.wav");
-
 	// Wheel properties ---------------------------------------
 	float connection_height = 1.2f;
 	float wheel_radius = 0.6f;
 	float wheel_width = 0.5f;
 	float suspensionRestLength = 1.2f;
-	bool recover_camera = false;
+	
 	// Don't change anything below this line ------------------
 
 	float half_width = car.chassis_size.x*0.5f;
@@ -196,12 +196,21 @@ update_status ModulePlayer::Update(float dt)
 			App->scene_intro->fallen = false;
 		}
 		if (App->scene_intro->sen_4 == true) {
-			vehicle->SetPos(125.2, 27, 254.4);
+			vehicle->SetPos(135, 27, 254.4);
 			vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
 			vehicle->body->setAngularVelocity(btVector3(0, 320, 0));
 			brake = BRAKE_POWER;
 		
 			App->scene_intro->fallen = false;
+		}
+		if (App->scene_intro->P1_Win == true || App->scene_intro->P2_Win == true) {
+			vehicle->SetPos(2, 27, 30);
+			vehicle->SetTransform(IdentityMatrix.M);
+			vehicle->body->setLinearVelocity(btVector3(0, 0, 0));
+			vehicle->body->setAngularVelocity(btVector3(0, 0, 0));
+			brake = BRAKE_POWER;
+			App->scene_intro->fallen = false;
+			App->scene_intro->P1_Win == false;
 		}
 	}//302, 27, 726.07
 	miliseconds++;

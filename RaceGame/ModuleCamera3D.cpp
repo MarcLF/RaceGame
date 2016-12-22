@@ -58,7 +58,7 @@ update_status ModuleCamera3D::Update(float dt)
 		Look(Position, m.translation(), true);
 		
 		// Correct height
-		Position.y = 9 + Reference.y;
+		Position.y = 8 + Reference.y;
 		
 		// Correct distance
 		vec3 cam_to_target = m.translation() - Position;

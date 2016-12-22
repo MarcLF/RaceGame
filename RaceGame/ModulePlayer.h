@@ -29,7 +29,7 @@ public:
 	float acceleration;
 	float brake;
 	float Kmh;
-	bool recover_camera;
+
 	const char* title_print;
 	p2SString title;
 };
