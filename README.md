@@ -16,7 +16,7 @@ A - Turn Left
 
 D - Turn Right
 
-0 - Brake
+space bar - Brake
 
 ###Player 2
 
@@ -28,7 +28,7 @@ Arrow Left - Turn left
 
 Arrow Right - Turn Right
 
-space bar - Brake
+number 0 - Brake
 
 ### Note from the developers
 At the start of the game both windows will appear one beneath the other so in order to play correctly you will need to drag the first one (2nd player) to the right and the other (1st player) one to the left.
